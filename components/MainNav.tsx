@@ -18,7 +18,7 @@ const MainNav: React.FC<MainNavProps> = ({ categories, showNav }) => {
   }));
   return (
     <div
-      className={`flex p-4 font-3xl font-medium pl-8 fixed z-30 w-[12rem] ${
+      className={`flex p-4 font-3xl font-medium mt-1 pl-8 fixed z-30 w-[12rem] ${
         showNav
           ? "left-0 bg-white flex-col space-y-6 mt-12 justify-center text-start"
           : "-left-full"
@@ -30,7 +30,7 @@ const MainNav: React.FC<MainNavProps> = ({ categories, showNav }) => {
           href={route.href}
           className={cn(
             "transition-colors hover:text-black",
-            route.active ? "text-black font-bold" : "text-neutral-500"
+            route.active ? "text-black" : "text-neutral-500"
           )}
         >
           {route.label}

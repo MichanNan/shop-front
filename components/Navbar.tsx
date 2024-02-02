@@ -12,20 +12,19 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ categories }) => {
   const [showNav, setShowNav] = useState(false);
   return (
-    <Container>
-      <div className="flex">
-        <div
-          className="md:hidden items-center p-4"
-          onClick={() => setShowNav(!showNav)}
-        >
-          <AlignJustify />
-        </div>
-        <Link href="/" className="p-4">
-          <p>Knit Boutique</p>
-        </Link>
-        <MainNav categories={categories} showNav={showNav} />
+    <div className="flex">
+      <div
+        className="md:hidden items-center p-4"
+        onClick={() => setShowNav(!showNav)}
+      >
+        <AlignJustify />
       </div>
-    </Container>
+      <Link href="/" className="p-4">
+        <p className="font-semibold text-xl ">Knit Boutique</p>
+      </Link>
+
+      <MainNav categories={categories} showNav={showNav} />
+    </div>
   );
 };
 

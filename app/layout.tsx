@@ -3,6 +3,8 @@ import { Lato } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { getCategories } from "@/actions/get-categories";
+import Container from "@/components/Container";
+import Footer from "@/components/Footer";
 
 const lato = Lato({ weight: ["400", "700"], subsets: ["latin"] });
 
@@ -20,9 +22,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={lato.className}>
-        {" "}
-        <Navbar categories={categories} />
-        {children}
+        <Container>
+          <Navbar categories={categories} />
+          {children}
+        </Container>{" "}
+        <Footer />
       </body>
     </html>
   );

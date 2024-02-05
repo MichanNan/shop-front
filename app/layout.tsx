@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { getCategories } from "@/actions/get-categories";
 import Container from "@/components/Container";
 import Footer from "@/components/Footer";
+import { PreviewProvider } from "@/hooks/usePreview";
 
 const lato = Lato({ weight: ["400", "700"], subsets: ["latin"] });
 
@@ -22,11 +23,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={lato.className}>
-        <Container>
-          <Navbar categories={categories} />
-          {children}
-        </Container>{" "}
-        <Footer />
+        <PreviewProvider>
+          <Container>
+            <Navbar categories={categories} />
+            {children}
+          </Container>{" "}
+          <Footer />
+        </PreviewProvider>
       </body>
     </html>
   );

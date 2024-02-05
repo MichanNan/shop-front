@@ -12,15 +12,15 @@ interface MainNavProps {
 const MainNav: React.FC<MainNavProps> = ({ categories, showNav }) => {
   const pathname = usePathname();
   const routes = categories?.map((category) => ({
-    href: `/category/${category.id}`,
+    href: `/categories/${category.id}`,
     label: category.name,
     active: pathname === `/category/${category.id}`,
   }));
   return (
     <div
-      className={`flex p-4 font-3xl font-medium mt-1 pl-8 fixed z-30 w-[12rem] ${
+      className={`flex p-4 text-xl font-medium pl-12 z-30 w-[10rem] h-[300px] md:h-auto absolute ${
         showNav
-          ? "left-0 bg-white flex-col space-y-6 mt-12 justify-center text-start"
+          ? "left-0 bg-white flex-col space-y-6 mt-12  text-start"
           : "-left-full"
       } md:static md:flex-row md:space-x-6 transition-all`}
     >

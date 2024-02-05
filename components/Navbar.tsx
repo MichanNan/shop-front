@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Container from "./Container";
 import Link from "next/link";
 import { AlignJustify } from "lucide-react";
 import { Category } from "@/types";
@@ -12,9 +11,9 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ categories }) => {
   const [showNav, setShowNav] = useState(false);
   return (
-    <div className="flex">
+    <div className="flex relative">
       <div
-        className="md:hidden items-center p-4"
+        className="md:hidden items-center p-4 z-30"
         onClick={() => setShowNav(!showNav)}
       >
         <AlignJustify />

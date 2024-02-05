@@ -12,7 +12,7 @@ const ProductImage: React.FC<ProductImageProps> = ({ images }) => {
   const [activeImage, setActiveImage] = useState(images[0].url);
 
   return (
-    <div className="flex flex-col gap-5 ">
+    <div className="flex flex-col gap-5 w-auto">
       <div className="w-[500px] h-[500px] relative flex cursor-pointer items-center justify-center rounded-md bg-white">
         <Image
           className="object-cover object-center rounded-md"
@@ -25,6 +25,7 @@ const ProductImage: React.FC<ProductImageProps> = ({ images }) => {
       <div className=" flex cursor-pointer items-center justify-start gap-3">
         {images.map((image) => (
           <span
+            key={image.id}
             className={cn(
               "w-[200px] h-[200px] relative aspect-square overflow-hidden rounded-md",
               activeImage === image.url ? "border-2 border-gray-900" : ""

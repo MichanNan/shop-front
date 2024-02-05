@@ -1,5 +1,6 @@
 import getProducts from "@/actions/get-products";
 import ProductList from "@/components/ProductList";
+import ProductPreview from "@/components/ProductPreview";
 import Image from "next/image";
 
 export default async function Home() {

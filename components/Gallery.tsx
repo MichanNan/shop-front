@@ -35,8 +35,8 @@ const Gallery: React.FC<GalleryProps> = ({ product, isPreview }) => {
         <ProductImage images={product.images} />
         <div
           className={cn(
-            "flex flex-col gap-4 w-full ",
-            isPreview ? "" : "ml-5 lg:ml-[100px]"
+            "flex flex-col items-center md:items-start gap-4 w-full ",
+            isPreview ? "" : "md:ml-5 lg:ml-[100px]"
           )}
         >
           <h3 className="font-bold text-4xl">{product.name}</h3>
@@ -46,7 +46,10 @@ const Gallery: React.FC<GalleryProps> = ({ product, isPreview }) => {
           <Separator />
           <span className="text-xl">Size: {product.size.name}</span>
           <span className="text-xl">Color: {product.color.name}</span>
-          <Button className="w-[180px] flex justify-evenly text-lg">
+          <Button
+            variant="outline"
+            className="w-[180px] flex justify-evenly text-lg rounded-md bg-gray-100 hover:bg-gray-300"
+          >
             Add to Cart <ShoppingCart />
           </Button>
         </div>

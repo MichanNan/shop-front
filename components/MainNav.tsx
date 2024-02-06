@@ -15,7 +15,6 @@ interface MainNavProps {
 
 const MainNav: React.FC<MainNavProps> = ({ categories, showNav }) => {
   const pathname = usePathname();
-  const router = useRouter();
 
   const routes = categories?.map((category) => ({
     href: `/categories/${category.id}`,
@@ -23,16 +22,13 @@ const MainNav: React.FC<MainNavProps> = ({ categories, showNav }) => {
     active: pathname === `/category/${category.id}`,
   }));
 
-  const cartCtx = useContext(cartContext);
   return (
     <div
-      className={`flex text-xl items-center pl-4 w-[80%] justify-between ${
-        showNav
-          ? "left-0 bg-white flex-col space-y-6 mt-12  text-start"
-          : "-left-full"
+      className={`flex text-md p-4 fixed -left top-0 bg-bgGray  ${
+        showNav ? "left-0 bg-white space-y-6 mt-16 text-start" : "-left-full"
       } md:static md:flex-row md:space-x-6 transition-all`}
     >
-      <div className="flex gap-4">
+      <div className={cn("flex gap-4", showNav ? "flex-col" : "")}>
         {routes?.map((route) => (
           <Link
             key={route.href}
@@ -44,19 +40,8 @@ const MainNav: React.FC<MainNavProps> = ({ categories, showNav }) => {
           >
             {route.label}
           </Link>
-        ))}
+        ))}{" "}
       </div>
-      <div className="ml-auto flex items-center gap-x-4">
-        <Button
-          onClick={() => router.push("/cart")}
-          className="flex item-center rounded-full bg-black px-4 py-2"
-        >
-          <ShoppingBag size={20} color="white" />
-          <span className="ml-2 text-sm font-medium text-white">
-            {cartCtx.data.length}
-          </span>
-        </Button>
-      </div>{" "}
     </div>
   );
 };

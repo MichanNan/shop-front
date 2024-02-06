@@ -19,7 +19,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
   });
 
   return (
-    <div className="mt-4 flex-col ml-10 xl:ml-12 space-y-12">
+    <div className="m-2 md:mt-4 flex-col xl:ml-12 space-y-12">
       <Gallery product={product} isPreview={false} />
       <Separator />
       <ProductList title="Related Products" items={relatedProducts} />

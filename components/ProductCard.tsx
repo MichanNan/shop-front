@@ -21,6 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
   const previewCtx = useContext(previewContext);
 
   const cartCtx = useContext(cartContext);
+  console.log(cartCtx.data);
 
   const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();

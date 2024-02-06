@@ -26,16 +26,16 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={lato.className}>
-        <CartContextProvider>
-          <PreviewProvider>
-            <ToastProvider />
-            <Container>
+        <Container>
+          <CartContextProvider>
+            <PreviewProvider>
+              <ToastProvider />
               <Navbar categories={categories} />
               {children}
-            </Container>{" "}
-            <Footer />
-          </PreviewProvider>
-        </CartContextProvider>
+              <Footer />
+            </PreviewProvider>
+          </CartContextProvider>
+        </Container>
       </body>
     </html>
   );

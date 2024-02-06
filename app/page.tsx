@@ -7,11 +7,11 @@ export default async function Home() {
   const featuredProduct = await getProducts({ isFeatured: true });
   const products = await getProducts({});
   return (
-    <div className="flex flex-col mt-5 gas-5 ">
+    <div className="flex flex-col mt-5">
       <ProductPreviewProvider />
-      <div className=" mx-auto">
+      <div className="mx-auto w-full">
         <Image
-          className="mx-auto rounded-lg"
+          className="rounded-lg"
           src="/rocknwool-5EbAeycIhyA-unsplash.jpg"
           alt="billboard"
           width={1200}

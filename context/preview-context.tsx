@@ -7,13 +7,15 @@ interface PreviewProviderProps {
 }
 
 interface PreviewContextProps {
+  data: Product[];
   isOpen: boolean;
-  onOpen: () => void;
+  onOpen: (value: Product) => void;
   onClose: () => void;
 }
 export const previewContext = createContext<PreviewContextProps>({
+  data: [],
   isOpen: false,
-  onOpen: () => {},
+  onOpen: (value: Product) => {},
   onClose: () => {},
 });
 
@@ -21,8 +23,10 @@ export const PreviewProvider: React.FC<PreviewProviderProps> = ({
   children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const onOpen = () => {
+  const onOpen = (data: Product) => {
+    setProducts((prev) => [...prev, data]);
     setIsOpen(true);
   };
 
@@ -31,7 +35,9 @@ export const PreviewProvider: React.FC<PreviewProviderProps> = ({
   };
 
   return (
-    <previewContext.Provider value={{ isOpen, onOpen, onClose }}>
+    <previewContext.Provider
+      value={{ data: products, isOpen, onOpen, onClose }}
+    >
       {children}
     </previewContext.Provider>
   );

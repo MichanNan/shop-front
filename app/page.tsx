@@ -1,6 +1,6 @@
 import getProducts from "@/actions/get-products";
 import ProductList from "@/components/ProductList";
-import ProductPreview from "@/components/ProductPreview";
+import ProductPreviewProvider from "@/components/ProductPreviewProvider";
 import Image from "next/image";
 
 export default async function Home() {
@@ -8,6 +8,7 @@ export default async function Home() {
   const products = await getProducts({});
   return (
     <div className="flex flex-col mt-5 gas-5 ">
+      <ProductPreviewProvider />
       <div className=" mx-auto">
         <Image
           className="mx-auto rounded-lg"

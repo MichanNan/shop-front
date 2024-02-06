@@ -5,7 +5,10 @@ import Navbar from "@/components/Navbar";
 import { getCategories } from "@/actions/get-categories";
 import Container from "@/components/Container";
 import Footer from "@/components/Footer";
-import { PreviewProvider } from "@/hooks/usePreview";
+import { PreviewProvider } from "@/context/preview-context";
+import { CartContextProvider } from "@/context/cart-context";
+import ToastProvider from "@/components/ToastProvider";
+import ProductPreviewProvider from "@/components/ProductPreviewProvider";
 
 const lato = Lato({ weight: ["400", "700"], subsets: ["latin"] });
 
@@ -23,13 +26,16 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={lato.className}>
-        <PreviewProvider>
-          <Container>
-            <Navbar categories={categories} />
-            {children}
-          </Container>{" "}
-          <Footer />
-        </PreviewProvider>
+        <CartContextProvider>
+          <PreviewProvider>
+            <ToastProvider />
+            <Container>
+              <Navbar categories={categories} />
+              {children}
+            </Container>{" "}
+            <Footer />
+          </PreviewProvider>
+        </CartContextProvider>
       </body>
     </html>
   );

@@ -8,14 +8,14 @@ import { Dialog, Transition } from "@headlessui/react";
 
 import IconButton from "./IconButton";
 import { X } from "lucide-react";
-import { previewContext } from "@/hooks/usePreview";
+import { previewContext } from "@/context/preview-context";
 
 interface ProductPreviewProps {
   item: Product | undefined;
 }
 const ProductPreview: React.FC<ProductPreviewProps> = ({ item }) => {
   const previewCtx = useContext(previewContext);
-  console.log(previewCtx.isOpen);
+
   return (
     <Transition show={previewCtx.isOpen} appear as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={previewCtx.onClose}>

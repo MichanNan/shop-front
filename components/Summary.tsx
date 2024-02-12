@@ -1,57 +1,42 @@
 "use client";
 
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Currency from "./Currency";
 import { Button } from "@/ui/button";
 import toast from "react-hot-toast";
 import { cartContext } from "@/context/cart-context";
+import { useSession } from "next-auth/react";
 
 const Summary = () => {
   const cartCtx = useContext(cartContext);
-  //   const items = useCart((state) => state.items);
-  //   const removeAll = useCart((state) => state.removeAll);
-  //   const searchParams = useSearchParams();
+  const session = useSession();
 
-  //   useEffect(() => {
-  //     if (searchParams.get("success")) {
-  //       toast.success("Payment completed.");
-  //     }
+  const totalPrice = cartCtx.data.reduce((total, item) => {
+    return (total += Number(item.product.price) * item.amount);
+  }, 0);
 
-  //     if (searchParams.get("canceld")) {
-  //       toast.error("Something went wrong!");
-  //     }
-  //   }, [searchParams, removeAll]);
+  const items = cartCtx.data;
 
-  // const totalPrice = items.reduce((total, item) => {
-  //   return total + Number(item.price);
-  // }, 0);
-
-  // const onCheckout = async () => {
-  //   const response = await axios.post(
-  //     `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
-  //     {
-  //       productIds: items.map((item) => item.id),
-  //     }
-  //   );
-  //   window.location = response.data.url;
-  // };
-
-  // const onCheckout = async () => {
-  //   const response = await axios.post(
-  //     `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
-  //     {
-  //       productIds: items.map((item) => item.id),
-  //     }
-  //   );
-
-  //   window.location = response.data.url;
-  // };
+  const onCheckout = async () => {
+    await fetch("http://localhost:3000/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        items,
+        clientEmail: session.data?.user?.email,
+      }),
+    })
+      .then((res) => res.json())
+      .then(({ url }) => (window.location = url));
+  };
 
   return (
-    <div className="flex justify-end">
+    <div className="flex justify-center md:justify-end ">
       <div
-        className="w-[50%] mt-16 rounded-lg bg-gray-50 px-5 py6
+        className="w-full md:w-[50%] mt-12 rounded-lg bg-gray-50 px-5 py6
    sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8"
       >
         <h2 className="text-lg font-medium text-gray-900">Order Summary</h2>
@@ -60,14 +45,14 @@ const Summary = () => {
             <div className="text-base font-medium text-gray-900">
               Order total
             </div>
-            <Currency value={0} />
+            <Currency value={totalPrice} />
           </div>
         </div>
         <Button
           disabled={cartCtx.data.length === 0}
           variant="outline"
-          onClick={() => {}}
-          className="w-full mt-6 bg-gray-100 hover:bg-gray-300"
+          onClick={onCheckout}
+          className="w-full mt-6 bg-black text-white hover:bg-gray-800"
         >
           Checkout
         </Button>

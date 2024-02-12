@@ -11,7 +11,7 @@ export default async function Home() {
       <ProductPreviewProvider />
       <div className="mx-auto w-full">
         <Image
-          className="rounded-lg"
+          className="rounded-lg mx-auto"
           src="/rocknwool-5EbAeycIhyA-unsplash.jpg"
           alt="billboard"
           width={1200}

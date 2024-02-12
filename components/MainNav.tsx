@@ -5,8 +5,8 @@ import { Category } from "@/types";
 import { Button } from "@/ui/button";
 import { ShoppingBag } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import { usePathname } from "next/navigation";
+import React from "react";
 
 interface MainNavProps {
   categories: Category[] | null;

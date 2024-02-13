@@ -6,6 +6,7 @@ import Image from "next/image";
 export default async function Home() {
   const featuredProduct = await getProducts({ isFeatured: true });
   const products = await getProducts({});
+
   return (
     <div className="flex flex-col mt-5">
       <ProductPreviewProvider />

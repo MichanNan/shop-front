@@ -8,8 +8,10 @@ import Footer from "@/components/Footer";
 import { PreviewProvider } from "@/context/preview-context";
 import { CartContextProvider } from "@/context/cart-context";
 import ToastProvider from "@/components/ToastProvider";
-import { getServerSession } from "next-auth";
 import { NextAuthProvider } from "@/components/SessionProvider";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import getUser from "@/actions/get-user";
 
 const lato = Lato({ weight: ["400", "700"], subsets: ["latin"] });
 
@@ -24,7 +26,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const categories = await getCategories();
-  const session = await getServerSession();
+
+  const user = await getUser();
+
   return (
     <html lang="en">
       <body className={lato.className}>
@@ -34,7 +38,7 @@ export default async function RootLayout({
             <PreviewProvider>
               <ToastProvider />
               <NextAuthProvider>
-                <Navbar categories={categories} />
+                <Navbar categories={categories} userId={user?.id} />
                 {children}
                 <Footer />{" "}
               </NextAuthProvider>

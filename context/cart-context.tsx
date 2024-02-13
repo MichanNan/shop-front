@@ -42,7 +42,6 @@ export const CartContextProvider: React.FC<CartProviderProps> = ({
         ...updatedItems[existedItemIndex],
         amount: updatedItems[existedItemIndex].amount + 1,
       };
-      console.log(updatedItems);
     } else {
       updatedItems = [...items, { product: value, amount: 1 }];
     }

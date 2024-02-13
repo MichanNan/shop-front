@@ -1,14 +1,15 @@
 "use client";
 
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Currency from "./Currency";
 import { Button } from "@/ui/button";
-import toast from "react-hot-toast";
 import { cartContext } from "@/context/cart-context";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 
 const Summary = () => {
+  const [isCheckingout, setIscheckingout] = useState(false);
   const cartCtx = useContext(cartContext);
   const session = useSession();
 
@@ -19,18 +20,13 @@ const Summary = () => {
   const items = cartCtx.data;
 
   const onCheckout = async () => {
-    await fetch("http://localhost:3000/api/checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        items,
-        clientEmail: session.data?.user?.email,
-      }),
-    })
-      .then((res) => res.json())
-      .then(({ url }) => (window.location = url));
+    setIscheckingout(true);
+    const response = await axios.post("http://localhost:3000/api/checkout", {
+      items,
+      clientEmail: session.data?.user?.email,
+    });
+    setIscheckingout(false);
+    window.location = response.data.url;
   };
 
   return (
@@ -48,8 +44,9 @@ const Summary = () => {
             <Currency value={totalPrice} />
           </div>
         </div>
+        <p>{isCheckingout && "Checking out..."}</p>
         <Button
-          disabled={cartCtx.data.length === 0}
+          disabled={cartCtx.data.length === 0 || isCheckingout}
           variant="outline"
           onClick={onCheckout}
           className="w-full mt-6 bg-black text-white hover:bg-gray-800"

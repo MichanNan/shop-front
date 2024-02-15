@@ -4,7 +4,6 @@ import { getSizes } from "@/actions/get-sizes";
 import ProductList from "@/components/ProductList";
 import ProductPreviewProvider from "@/components/ProductPreviewProvider";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 
 interface ProductPageProds {
   searchParams: {

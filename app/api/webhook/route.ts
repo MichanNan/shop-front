@@ -24,6 +24,19 @@ export async function POST(req: Request) {
   const address = session?.customer_details?.address;
   const name = session?.customer_details?.name;
 
+  const orderId = session.metadata?.orderId;
+
+  const order = await prismadb.order.findUnique({
+    where: {
+      id: orderId,
+    },
+    include: { orderItems: true },
+  });
+
+  if (!order) {
+    return new NextResponse("Something went wrong!");
+  }
+
   const addressComponents = [
     address?.line1,
     address?.line2,
@@ -50,6 +63,32 @@ export async function POST(req: Request) {
         orderItems: true,
       },
     });
+
+    await Promise.all(
+      order.orderItems.map(async (item) => {
+        const product = await prismadb.product.findUnique({
+          where: {
+            id: item.productId,
+          },
+        });
+
+        if (!product) {
+          return new NextResponse("Product not found!");
+        }
+
+        const updatedAmount = product.amount - item.amount;
+
+        const updatedProduct = await prismadb.product.update({
+          where: { id: item.productId },
+          data: {
+            amount: updatedAmount,
+            isArchived: updatedAmount === 0 ? true : product.isArchived,
+          },
+        });
+
+        return NextResponse.json(updatedProduct);
+      })
+    );
   }
 
   return new NextResponse(null, { status: 200 });

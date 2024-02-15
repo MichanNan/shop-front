@@ -9,6 +9,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { items, clientEmail } = body;
+    console.log(items);
     const client = await prismadb.client.findFirst({
       where: { email: clientEmail },
     });
@@ -24,6 +25,54 @@ export async function POST(req: Request) {
     const amounts = items.map(
       (item: { product: Product; amount: number }) => item.amount
     );
+
+    // await Promise.all(
+    //   items.map(async (item: { product: Product; amount: number }) => {
+    //     const product = await prismadb.product.findUnique({
+    //       where: {
+    //         id: item.product.id,
+    //       },
+    //     });
+    //     console.log(product);
+    //     if (!product) {
+    //       return new NextResponse("Product not found!");
+    //     }
+
+    //     const updatedAmount = product.amount - item.amount;
+
+    //     const updatedProduct = await prismadb.product.update({
+    //       where: { id: item.product.id },
+    //       data: {
+    //         amount: updatedAmount,
+    //       },
+    //     });
+
+    //     return NextResponse.json(updatedProduct);
+    //   })
+    // );
+
+    // for (const item of items) {
+    //   const product = await prismadb.product.findUnique({
+    //     where: {
+    //       id: item.product.id,
+    //     },
+    //   });
+    //   console.log(product);
+    //   if (!product) {
+    //     return new NextResponse("Product not found!");
+    //   }
+
+    //   const updatedAmount = product.amount - item.amount;
+
+    //   const updatedProduct = await prismadb.product.update({
+    //     where: { id: item.product.id },
+    //     data: {
+    //       amount: updatedAmount,
+    //     },
+    //   });
+
+    //   return NextResponse.json(updatedProduct);
+    // }
 
     const products = await prismadb.product.findMany({
       where: {

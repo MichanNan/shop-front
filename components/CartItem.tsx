@@ -40,7 +40,12 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
         <div className="flex gap-2 md:gap-5 justify-evenly items-center">
           <IconButton icon={<Minus size={10} />} onClick={onRemoveItem} />
           <span>{item.amount}</span>
-          <IconButton icon={<Plus size={10} />} onClick={onAddItem} />
+          <IconButton icon={<Plus size={10} />} onClick={onAddItem} />{" "}
+          {/* {cartCtx.isMax && (
+            <p className="text-red-700">
+              You have added the max amount of the product!
+            </p>
+          )} */}
         </div>
         <div className="flex justify-center items-center gap-2 md:gap-10">
           <span>Size: {item.product.size.name}</span>

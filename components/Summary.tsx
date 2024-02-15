@@ -6,7 +6,6 @@ import Currency from "./Currency";
 import { Button } from "@/ui/button";
 import { cartContext } from "@/context/cart-context";
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 
 const Summary = () => {
   const [isCheckingout, setIscheckingout] = useState(false);

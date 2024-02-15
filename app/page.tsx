@@ -1,11 +1,27 @@
+import { getColors } from "@/actions/get-colors";
 import getProducts from "@/actions/get-products";
+import { getSizes } from "@/actions/get-sizes";
 import ProductList from "@/components/ProductList";
 import ProductPreviewProvider from "@/components/ProductPreviewProvider";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
-export default async function Home() {
+interface ProductPageProds {
+  searchParams: {
+    colorId: string;
+    sizeId: string;
+  };
+}
+
+const Home: React.FC<ProductPageProds> = async ({ searchParams }) => {
   const featuredProduct = await getProducts({ isFeatured: true });
-  const products = await getProducts({});
+  const products = await getProducts({
+    colorId: searchParams.colorId,
+    sizeId: searchParams.sizeId,
+  });
+
+  const colors = await getColors();
+  const sizes = await getSizes();
 
   return (
     <div className="flex flex-col mt-5">
@@ -23,8 +39,16 @@ export default async function Home() {
         <ProductList title="Featured Products" items={featuredProduct} />
       </div>
       <div className="m-10">
-        <ProductList title="Explore all Products" items={products} />
+        <ProductList
+          title="Explore all Products"
+          items={products}
+          allProduct
+          colors={colors}
+          sizes={sizes}
+        />
       </div>
     </div>
   );
-}
+};
+
+export default Home;

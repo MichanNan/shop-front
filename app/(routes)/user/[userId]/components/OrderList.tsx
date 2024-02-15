@@ -4,7 +4,6 @@ import OrderItem from "./OrderItem";
 import { ArrowLeft } from "lucide-react";
 import { Order } from "@/types";
 import { useRouter } from "next/navigation";
-import { Button } from "@/ui/button";
 import Pagination from "@/components/Pagination";
 
 interface OrderListProps {

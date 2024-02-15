@@ -18,8 +18,6 @@ const Pagination: React.FC<PaginationProps> = ({
   setPageEndIndex,
   setPageStartIndex,
 }) => {
-  const testOrder = data.slice(pageStartIndex, pageEndIndex);
-
   const handleGoPreviousPage = () => {
     if (pageStartIndex > 10 && pageEndIndex <= data.length) {
       setPageStartIndex((prev: number) => prev - 10);

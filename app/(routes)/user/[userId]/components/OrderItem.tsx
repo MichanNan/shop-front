@@ -13,7 +13,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
   }, 0);
 
   return (
-    <div className="flex flex-col bg-gray-100  gap-4 rounded-lg w-full px-10">
+    <div className="flex flex-col bg-gray-100 gap-4 rounded-lg w-full px-10">
       <div className="flex gap-10 mx-4 p-2 items-center text-md md:text-lg font-bold text-gray-700 border-b-[1px]">
         <span>{format(order.createdAt, "MMMM do, yyyy")}</span>
         <span className="flex gap-4">
@@ -25,7 +25,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
         </span>
       </div>
 
-      <div className="mb-4 ml-4">
+      <div className="mb-4 ml-4 flex flex-col gap-2">
         {order.orderItems.map((item) => (
           <div
             key={item.id}

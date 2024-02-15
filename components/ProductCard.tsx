@@ -10,6 +10,8 @@ import Currency from "./Currency";
 import { useRouter } from "next/navigation";
 import { previewContext } from "@/context/preview-context";
 import { cartContext } from "@/context/cart-context";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 interface ProductCardProps {
   item: Product;
@@ -22,6 +24,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
 
   const cartCtx = useContext(cartContext);
 
+  const session = useSession();
+
   const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
     previewCtx.onOpen(item);
@@ -29,7 +33,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
 
   const handleAddItem: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
-    cartCtx.addItems(item);
+    if (!session.data?.user) {
+      toast.error("Please login first!");
+    } else {
+      cartCtx.addItems(item);
+    }
   };
 
   return (

@@ -13,17 +13,9 @@ const Navbar: React.FC<NavbarProps> = ({ categories, userId }) => {
   const [showNav, setShowNav] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
-  if (typeof window === "undefined") return;
-
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  useEffect(() => {
-    if (window.screen.width >= 768) {
-      setShowNav(false);
-    }
-  }, [window.screen.width]);
 
   if (!isMounted) return;
 

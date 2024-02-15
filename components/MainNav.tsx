@@ -7,7 +7,7 @@ import { CircleUserIcon, ShoppingBag } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 interface MainNavProps {
   categories: Category[] | null;
@@ -30,19 +30,21 @@ const MainNav: React.FC<MainNavProps> = ({ categories, showNav, userId }) => {
 
   const cartCtx = useContext(cartContext);
 
+  const isLoggedIn = session?.data?.user ? true : false;
+
   const totalAmount = cartCtx.data.reduce((total, item) => {
     return (total = total + item.amount);
   }, 0);
 
   return (
     <div
-      className={`flex text-md p-8 pl-10 fixed -left top-0 bg-bgGray  ${
+      className={`flex text-md p-8 md:p-0 pl-10 fixed -left top-0 bg-bgGray  ${
         showNav
-          ? "left-0 bg-white space-y-6 mt-16 text-start flex-col md:flex-row"
+          ? "left-0 bg-white space-y-6 md:space-y-2 mt-16 md:mt-0 text-start flex-col md:flex-row"
           : "-left-full flex-col md:flex-row"
-      } md:static md:flex-row md:space-x-6 transition-all`}
+      } md: w-full md:static md:grid grid-cols-6 md:space-x-6 transition-all`}
     >
-      <div className="flex gap-4 flex-col md:flex-row md:items-center ">
+      <div className="flex gap-4 flex-col md:col-span-4 md:flex-row md:items-center ">
         {routes?.map((route) => (
           <Link
             key={route.href}
@@ -57,7 +59,7 @@ const MainNav: React.FC<MainNavProps> = ({ categories, showNav, userId }) => {
         ))}{" "}
       </div>
 
-      <div className=" z-30 flex flex-col gap-2 justify-center items-start text-sm md:text-md lg:text-lg md:items-center md:gap-4 md:flex-row lg:translate-x-[20rem]  xl:translate-x-[25rem] transition-all">
+      <div className=" z-30 flex flex-col gap-2 justify-center items-start text-sm md:text-md  md:items-center md:gap-4 md:flex-row transition-all">
         {session.data?.user && <div>Hello {session.data?.user?.name}</div>}
         {session.data?.user ? (
           <div onClick={() => signOut()} className=" hover:cursor-pointer">
@@ -73,27 +75,25 @@ const MainNav: React.FC<MainNavProps> = ({ categories, showNav, userId }) => {
         )}
       </div>
 
-      {session && (
-        <div className=" flex flex-col gap-2 md:flex-row items-start md:items-center gap-x-4 lg:translate-x-[20rem] xl:translate-x-[25rem] transition-all">
-          {userId && (
-            <Button
-              onClick={() => router.push(`/user/${userId}`)}
-              className="flex item-center rounded-full bg-black px-4 py-2"
-            >
-              <CircleUserIcon size={20} color="white" />
-            </Button>
-          )}
+      <div className=" flex flex-col gap-2 md:flex-row items-start md:items-center gap-x-4 transition-all">
+        {isLoggedIn && (
           <Button
-            onClick={() => router.push("/cart")}
+            onClick={() => router.push(`/user/${userId}`)}
             className="flex item-center rounded-full bg-black px-4 py-2"
           >
-            <ShoppingBag size={20} color="white" />
-            <span className="ml-2 text-sm font-medium text-white">
-              {totalAmount}
-            </span>
+            <CircleUserIcon size={20} color="white" />
           </Button>
-        </div>
-      )}
+        )}
+        <Button
+          onClick={() => router.push("/cart")}
+          className="flex item-center rounded-full bg-black px-4 py-2"
+        >
+          <ShoppingBag size={20} color="white" />
+          <span className="ml-2 text-sm font-medium text-white">
+            {totalAmount}
+          </span>
+        </Button>
+      </div>
     </div>
   );
 };

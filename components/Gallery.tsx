@@ -1,6 +1,6 @@
 "use client";
 import { Product } from "@/types";
-import React from "react";
+import React, { useContext } from "react";
 import ProductImage from "./ProductImage";
 import { Separator } from "../ui/separator";
 import { ArrowLeft, ShoppingCart } from "lucide-react";
@@ -8,6 +8,9 @@ import { Button } from "../ui/button";
 import Currency from "./Currency";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { cartContext } from "@/context/cart-context";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 interface GalleryProps {
   product: Product | undefined;
@@ -16,6 +19,19 @@ interface GalleryProps {
 
 const Gallery: React.FC<GalleryProps> = ({ product, isPreview }) => {
   const router = useRouter();
+
+  const cartCtx = useContext(cartContext);
+  const session = useSession();
+
+  const handleOnAddProduct = () => {
+    if (!session.data?.user) {
+      toast.error("Please login first!");
+    } else if (!product) {
+      toast.error("Something went wrong!");
+    } else {
+      cartCtx.addItems(product);
+    }
+  };
 
   if (!product) return;
   return (
@@ -47,6 +63,7 @@ const Gallery: React.FC<GalleryProps> = ({ product, isPreview }) => {
           <span className="text-xl">Size: {product.size.name}</span>
           <span className="text-xl">Color: {product.color.name}</span>
           <Button
+            onClick={handleOnAddProduct}
             variant="outline"
             className="w-[180px] flex justify-evenly text-lg rounded-md bg-gray-100 hover:bg-gray-300"
           >

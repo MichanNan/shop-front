@@ -1,8 +1,8 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import axios from "axios";
 import { getServerSession } from "next-auth";
 
 import prismadb from "@/lib/prismadb";
+import { authOptions } from "@/lib/utils";
 
 const getUser = async () => {
   const session = await getServerSession(authOptions);

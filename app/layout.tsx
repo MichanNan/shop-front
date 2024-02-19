@@ -9,8 +9,6 @@ import { PreviewProvider } from "@/context/preview-context";
 import { CartContextProvider } from "@/context/cart-context";
 import ToastProvider from "@/components/ToastProvider";
 import { NextAuthProvider } from "@/components/SessionProvider";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 import getUser from "@/actions/get-user";
 
 const lato = Lato({ weight: ["400", "700"], subsets: ["latin"] });

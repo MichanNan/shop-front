@@ -40,15 +40,6 @@ const MainNav: React.FC<MainNavProps> = ({ categories, showNav, userId }) => {
     active: pathname === `/category/${category.id}`,
   }));
 
-  if (!routes) return;
-
-  const [showRoutes, setShowRoutes] = useState(routes);
-  const [routesIsShort, setRoutesIsShort] = useState(false);
-  const [foldedNav, setFoldedNav] = useState<Routes>([]);
-  const [navIsfolded, setNavIsFolded] = useState(true);
-
-  const shortRoutes = routes.slice(0, 5);
-
   useEffect(() => {
     if (routes && routes.length > 5) {
       setShowRoutes(shortRoutes);
@@ -56,6 +47,11 @@ const MainNav: React.FC<MainNavProps> = ({ categories, showNav, userId }) => {
       setFoldedNav(routes.slice(5));
     }
   }, []);
+
+  const [showRoutes, setShowRoutes] = useState(routes);
+  const [routesIsShort, setRoutesIsShort] = useState(false);
+  const [foldedNav, setFoldedNav] = useState<Routes>([]);
+  const [navIsfolded, setNavIsFolded] = useState(true);
 
   const router = useRouter();
 
@@ -69,9 +65,12 @@ const MainNav: React.FC<MainNavProps> = ({ categories, showNav, userId }) => {
     return (total = total + item.amount);
   }, 0);
 
+  if (!routes) return;
   const handleUnfoldNav = () => {
     setNavIsFolded(false);
   };
+
+  const shortRoutes = routes.slice(0, 5);
 
   const handleFoldNav = () => {
     setNavIsFolded(true);
@@ -86,18 +85,19 @@ const MainNav: React.FC<MainNavProps> = ({ categories, showNav, userId }) => {
       } md: w-full md:static md:grid grid-cols-6 md:space-x-6 transition-all`}
     >
       <div className="relative flex gap-4 flex-col md:col-span-4 md:flex-row md:items-center">
-        {showRoutes.map((route) => (
-          <Link
-            key={route.href}
-            href={route.href}
-            className={cn(
-              "transition-colors hover:text-black",
-              route.active ? "text-black" : "text-neutral-500"
-            )}
-          >
-            {route.label}
-          </Link>
-        ))}
+        {showRoutes &&
+          showRoutes.map((route) => (
+            <Link
+              key={route.href}
+              href={route.href}
+              className={cn(
+                "transition-colors hover:text-black",
+                route.active ? "text-black" : "text-neutral-500"
+              )}
+            >
+              {route.label}
+            </Link>
+          ))}
         {routes.length > 5 && routesIsShort && navIsfolded && (
           <Button
             onClick={handleUnfoldNav}

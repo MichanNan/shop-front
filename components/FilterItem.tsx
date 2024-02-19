@@ -19,17 +19,15 @@ const FilterItem: React.FC<FilterProps> = ({ data, name, valueKey }) => {
   const router = useRouter();
   const [showData, setShowData] = useState(data);
   const [dataIsShort, setDataIsShort] = useState(false);
-
-  if (!showData || !data) return;
-
-  const shortData = data.slice(0, 8);
-
   useEffect(() => {
-    if (data.length > 8) {
+    if (data && data.length > 8) {
       setShowData(shortData);
       setDataIsShort(true);
     }
   }, []);
+  if (!showData || !data) return;
+
+  const shortData = data.slice(0, 8);
 
   const selectedValue = searchParams.get(valueKey);
 

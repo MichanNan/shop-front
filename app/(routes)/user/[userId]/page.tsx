@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import OrderList from "./components/OrderList";
-import getOrders from "@/actions/get-order";
+import { getOrders } from "@/actions/get-order";
 
 const UserAccountPage = async () => {
   const orders = await getOrders();

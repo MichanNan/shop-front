@@ -20,17 +20,19 @@ const Navbar: React.FC<NavbarProps> = ({ categories, userId }) => {
   if (!isMounted) return;
 
   return (
-    <div className="flex items-center gap-4 relative mx-2 md:ml-10 mt-4">
-      <div
-        className="md:hidden items-center p-4 z-30"
-        onClick={() => setShowNav(!showNav)}
-      >
-        <AlignJustify />
+    <div className="sticky top-0 bg-white z-20">
+      <div className="flex items-center gap-4 relative mx-2 md:ml-10 md:mt-4 z-99">
+        <div
+          className="md:hidden items-center p-4 z-30"
+          onClick={() => setShowNav(!showNav)}
+        >
+          <AlignJustify />
+        </div>
+        <Link href="/" className="w-[10rem]">
+          <p className="font-semibold text-xl ">Knit Boutique</p>
+        </Link>
+        <MainNav categories={categories} showNav={showNav} userId={userId} />
       </div>
-      <Link href="/" className="w-[10rem]">
-        <p className="font-semibold text-xl ">Knit Boutique</p>
-      </Link>
-      <MainNav categories={categories} showNav={showNav} userId={userId} />
     </div>
   );
 };

@@ -20,10 +20,14 @@ const Summary = () => {
 
   const onCheckout = async () => {
     setIscheckingout(true);
-    const response = await axios.post("http://localhost:3000/api/checkout", {
-      items,
-      clientEmail: session.data?.user?.email,
-    });
+
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_ORDER_API_URL}/checkout`,
+      {
+        items,
+        clientEmail: session.data?.user?.email,
+      }
+    );
     setIscheckingout(false);
     window.location = response.data.url;
   };

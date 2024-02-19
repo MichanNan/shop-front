@@ -52,7 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ item }) => {
           src={item?.images[0].url}
           alt="Image"
           fill
-          className="aspect-square object-cover rounded-md"
+          className="aspect-square rounded-md"
         />
         <div className="opacity-0 group-hover:opacity-100 trasition absolute w-full px-6 bottom-5 ">
           <div className="flex gap-x-6 justify-center">

@@ -21,7 +21,11 @@ export async function GET(req: Request) {
     }
 
     const orders = await prismadb.order.findMany({
-      where: { clientId: user.id },
+      where: {
+        clientId: user.id,
+        isPaid: true,
+      },
+
       include: {
         orderItems: { include: { product: { include: { images: true } } } },
       },

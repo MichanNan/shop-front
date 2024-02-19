@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: "Knit Boutique",
   description: "Explore my knitting world",
 };
+export const dynamic = "force-dynamic";
 
 export default async function RootLayout({
   children,

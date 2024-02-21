@@ -1,5 +1,5 @@
 # Overview
-This is a online shop website that provide a mount of knitting projects from myself. You can register and login to explore all the products, add to shopping cart and use stripe to place your order. At user account you can also check all your orders.
+This is an online shop website that provide a mount of knitting projects from myself. You can register and login to explore all the products, add to shopping cart and use stripe to place your order. At user account you can also check all your orders.
 
 ## Demo
 [Check the deployment](https://shop-front-sor7.vercel.app/)
